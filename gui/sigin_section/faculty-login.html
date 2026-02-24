@@ -1,42 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faculty Login — University Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link href="/css/signin.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Login — University Portal</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- RESET ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      background: #f5f6f8;
+    }
+
+    /* ---------- LEFT PANEL (UNCHANGED) ---------- */
+    .panel-left {
+      width: 55%;
+      position: relative;
+      color: #fff;
+      padding: 48px;
+      background-image: url("/resources/background.jpeg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .panel-left::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+    }
+
+    .panel-left * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .university-mark {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-main {
+      height: 92px;
+    }
+
+    .faculty-name {
+      font-size: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .university-name {
+      font-size: 22px;
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+    }
+
+    .panel-left-main {
+      margin-top: 120px;
+      max-width: 520px;
+    }
+
+    .big-quote {
+      font-size: 64px;
+      font-family: "Playfair Display", serif;
+    }
+
+    .tagline {
+      font-size: 40px;
+      font-family: "Playfair Display", serif;
+      margin-bottom: 16px;
+    }
+
+    .tagline-sub {
+      font-size: 16px;
+    }
+
+    .panel-left-footer {
+      position: absolute;
+      bottom: 40px;
+      left: 48px;
+      right: 48px;
+    }
+
+    .divider-line {
+      height: 1px;
+      background: rgba(255,255,255,0.3);
+      margin-bottom: 12px;
+    }
+
+    /* ---------- RIGHT PANEL ---------- */
+    .panel-right {
+      width: 45%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+    }
+
+    .login-card {
+      width: 460px;
+      padding: 0 20px;
+    }
+
+    .login-heading-label {
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      color: #777;
+    }
+
+    .login-heading h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 40px;
+      margin: 10px 0;
+    }
+
+    .login-heading p {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 28px;
+    }
+
+    /* ---------- FORM ---------- */
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      font-size: 15px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px 44px 16px 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .toggle-pass {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* ---------- REMEMBER ME ---------- */
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      margin: 8px 0 26px;
+    }
+
+    .remember-me input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 18px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .help-link {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 26px;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .panel-left {
+        width: 100%;
+        min-height: 45vh;
+      }
+
+      .panel-right {
+        width: 100%;
+        padding: 32px 0;
+      }
+
+      .login-card {
+        width: 100%;
+        max-width: 420px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
 <!-- LEFT PANEL -->
 <div class="panel-left">
-  <div class="decorative-lines">
-    <svg viewBox="0 0 500 800" preserveAspectRatio="none">
-      <circle cx="250" cy="400" r="300" fill="none" stroke="white" stroke-width="1"/>
-      <circle cx="250" cy="400" r="220" fill="none" stroke="white" stroke-width="1"/>
-      <circle cx="250" cy="400" r="140" fill="none" stroke="white" stroke-width="1"/>
-      <line x1="0" y1="400" x2="500" y2="400" stroke="white" stroke-width="1"/>
-      <line x1="250" y1="0" x2="250" y2="800" stroke="white" stroke-width="1"/>
-    </svg>
-  </div>
-
   <div class="university-mark">
-    <div class="seal">
-      <div class="seal-inner">U</div>
+    <img src="/resources/Kelaniya.png" class="logo-main" alt="University Logo">
+    <div>
+      <div class="faculty-name">Faculty of Science</div>
+      <div class="university-name">University of Kelaniya</div>
     </div>
-    <div class="university-name">Elmwood University</div>
   </div>
 
   <div class="panel-left-main">
     <div class="big-quote">"</div>
     <h2 class="tagline">Where knowledge<br>meets <em>purpose</em></h2>
-    <p class="tagline-sub">Access your faculty dashboard, course materials, student records, and administrative tools — all in one secure place.</p>
+    <p class="tagline-sub">
+      Access your faculty dashboard, course materials, student records,
+      and administrative tools — all in one secure place.
+    </p>
   </div>
 
   <div class="panel-left-footer">
     <div class="divider-line"></div>
-    <p class="footer-text">Faculty & Staff Portal · Academic Year 2025–26</p>
+    <p class="footer-text">© All right Reserved</p>
   </div>
 </div>
 
@@ -49,100 +258,45 @@
       <p>Enter your university credentials to continue</p>
     </div>
 
-    <div class="error-msg" id="errorMsg">
-      Invalid email or password. Please try again.
-    </div>
-
-    <form id="loginForm" novalidate>
+    <form>
       <div class="form-group">
-        <label for="email">Faculty Email</label>
+        <label>Email</label>
         <div class="input-wrap">
-          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-          <input type="email" id="email" placeholder="you@elmwood.edu" autocomplete="email">
+          <input type="email" placeholder="admin@gmail.com">
         </div>
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
+        <label>Password</label>
         <div class="input-wrap">
-          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
-          <button type="button" class="toggle-pass" id="togglePass" aria-label="Toggle password">
-            <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </button>
+          <input type="password" id="password" placeholder="••••••••">
+          <button type="button" class="toggle-pass" id="togglePass">👁</button>
         </div>
       </div>
 
-      <div class="form-options">
-        <label class="remember-wrap">
-          <input type="checkbox" id="remember">
-          <span class="remember-label">Remember me</span>
-        </label>
-        <a href="#" class="forgot-link">Forgot password?</a>
+      <!-- REMEMBER ME -->
+      <div class="remember-me">
+        <input type="checkbox" id="remember">
+        <label for="remember">Remember me</label>
       </div>
 
-      <button type="submit" class="btn-login">
-        <span>Sign In to Portal</span>
-      </button>
+      <button class="btn-login">Sign In to Portal</button>
     </form>
 
-    <div class="sso-divider"><span>or continue with</span></div>
-
-    <button class="btn-sso">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <rect x="2" y="2" width="9" height="9" rx="1"/>
-        <rect x="13" y="2" width="9" height="9" rx="1"/>
-        <rect x="2" y="13" width="9" height="9" rx="1"/>
-        <rect x="13" y="13" width="9" height="9" rx="1"/>
-      </svg>
-      Single Sign-On (SSO)
-    </button>
-
     <div class="help-link">
-      Need access? <a href="#">Contact IT Support</a>
+      Privacy Policy <a href="#">Terms of use</a>
     </div>
   </div>
 </div>
 
 <script>
-  // Password toggle
-  const togglePass = document.getElementById('togglePass');
-  const passInput = document.getElementById('password');
-  togglePass.addEventListener('click', () => {
-    const isPass = passInput.type === 'password';
-    passInput.type = isPass ? 'text' : 'password';
-    togglePass.querySelector('svg').innerHTML = isPass
-      ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`
-      : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
-  });
+  const togglePass = document.getElementById("togglePass");
+  const password = document.getElementById("password");
 
-  // Form submit demo
-  document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const pass = document.getElementById('password').value;
-    const errEl = document.getElementById('errorMsg');
-
-    if (!email || !pass) {
-      errEl.textContent = 'Please enter your email and password.';
-      errEl.style.display = 'block';
-      return;
-    }
-    errEl.style.display = 'none';
-    // Simulate loading
-    const btn = this.querySelector('.btn-login span');
-    btn.textContent = 'Signing in…';
-    setTimeout(() => { btn.textContent = 'Sign In to Portal'; }, 2000);
-  });
+  togglePass.onclick = () => {
+    password.type = password.type === "password" ? "text" : "password";
+  };
 </script>
+
 </body>
 </html>
