@@ -1,4 +1,4 @@
-
+    
     /* ---------- RESET ---------- */
     * {
       margin: 0;
@@ -19,7 +19,7 @@
       position: relative;
       color: #fff;
       padding: 48px;
-      background-image: url("/resources/background.jpeg");
+      background-image: url("../images/background.jpeg");
       background-size: cover;
       background-position: center;
     }
@@ -210,4 +210,5 @@
         max-width: 420px;
       }
     }
+  
   

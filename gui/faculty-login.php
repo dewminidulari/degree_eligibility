@@ -7,15 +7,17 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/css/signin.css">
+ <link rel="stylesheet" href="../assets/css/signin.css"/>
+
 </head>
+
 
 <body>
 
 <!-- LEFT PANEL -->
 <div class="panel-left">
   <div class="university-mark">
-    <img src="/resources/Kelaniya.png" class="logo-main" alt="University Logo">
+    <img src="../assets/images/Kelaniya.png" class="logo-main" alt="University Logo">
     <div>
       <div class="faculty-name">Faculty of Science</div>
       <div class="university-name">University of Kelaniya</div>
