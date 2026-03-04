@@ -1,41 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Faculty Login — University Portal</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty Login — University Portal</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
- <link rel="stylesheet" href="../assets/css/signin.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=DM+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/signin.css"/>
 
 </head>
 
-
 <body>
 
-<!-- LEFT PANEL -->
+<!-- LEFT PANEL (UNCHANGED) -->
 <div class="panel-left">
   <div class="university-mark">
-    <img src="../assets/images/Kelaniya.png" class="logo-main" alt="University Logo">
+    <img src="../assets/images/Kelaniya.png" class="logo-main">
     <div>
       <div class="faculty-name">Faculty of Science</div>
       <div class="university-name">University of Kelaniya</div>
     </div>
-  </div>
-
-  <div class="panel-left-main">
-    <div class="big-quote">"</div>
-    <h2 class="tagline">Where knowledge<br>meets <em>purpose</em></h2>
-    <p class="tagline-sub">
-      Access your faculty dashboard, course materials, student records,
-      and administrative tools — all in one secure place.
-    </p>
-  </div>
-
-  <div class="panel-left-footer">
-    <div class="divider-line"></div>
-    <p class="footer-text">© All right Reserved</p>
   </div>
 </div>
 
@@ -48,44 +32,61 @@
       <p>Enter your university credentials to continue</p>
     </div>
 
-    <form>
+    <form id="loginForm">
       <div class="form-group">
-        <label>Email</label>
+        <label>Username</label>
         <div class="input-wrap">
-          <input type="email" placeholder="admin@gmail.com">
+          <input type="text" name="username" id="username" required>
         </div>
       </div>
 
       <div class="form-group">
         <label>Password</label>
         <div class="input-wrap">
-          <input type="password" id="password" placeholder="••••••••">
+          <input type="password" name="password" id="password" required>
           <button type="button" class="toggle-pass" id="togglePass">👁</button>
         </div>
       </div>
 
-      <!-- REMEMBER ME -->
       <div class="remember-me">
         <input type="checkbox" id="remember">
         <label for="remember">Remember me</label>
       </div>
 
-      <button class="btn-login">Sign In to Portal</button>
+      <button type="submit" class="btn-login">Sign In</button>
+      <p id="msg" style="color:red;"></p>
     </form>
-
-    <div class="help-link">
-      Privacy Policy <a href="#">Terms of use</a>
-    </div>
   </div>
 </div>
 
 <script>
-  const togglePass = document.getElementById("togglePass");
-  const password = document.getElementById("password");
+document.getElementById("togglePass").onclick = () => {
+  const p = document.getElementById("password");
+  p.type = p.type === "password" ? "text" : "password";
+};
 
-  togglePass.onclick = () => {
-    password.type = password.type === "password" ? "text" : "password";
-  };
+// AJAX LOGIN
+document.getElementById("loginForm").onsubmit = function(e){
+  e.preventDefault();
+
+  const form = new FormData();
+  form.append("username", username.value);
+  form.append("password", password.value);
+  form.append("remember", remember.checked);
+
+  fetch("loginProcess.php", {
+    method: "POST",
+    body: form
+  })
+  .then(res => res.text())
+  .then(data => {
+    if(data === "success"){
+      window.location = "dashboard.php";
+    } else {
+      msg.innerText = data;
+    }
+  });
+};
 </script>
 
 </body>
