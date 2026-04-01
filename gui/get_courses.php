@@ -1,5 +1,5 @@
 <?php
-require_once '../Connection/connection.php';
+require_once '../connection/connection.php';
 header('Content-Type: application/json');
 
 // Enable error reporting for debugging
@@ -9,6 +9,9 @@ ini_set('display_errors', 1);
 try {
     // Get search term if provided
     $search = isset($_GET['search']) ? $_GET['search'] : '';
+    
+    // ensure connection for escaping
+    Database::setUpConnection();
     
     // Build query
     $query = "SELECT module_code, module_name, credit_value, is_gpa_module, module_status FROM module";

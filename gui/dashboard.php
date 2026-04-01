@@ -7,7 +7,7 @@
   <title>Faculty of Science – Physical Science (PS) GPA Calculator</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/dashboard.css" />
+  <link rel="stylesheet" href="../assets/css/dashboard.css?v=20260324g" />
 </head>
 
 <body>
@@ -27,7 +27,7 @@
       <a class="nav-item" onclick="showPage('students', this)"><span class="icon"><span class="material-icons">people</span></span> Student Records</a>
       <a class="nav-item" onclick="showPage('courses', this)"><span class="icon"><span class="material-icons">menu_book</span></span> Course Management</a>
       <a class="nav-item" onclick="showPage('gpa', this)"><span class="icon"><span class="material-icons">calculate</span></span> GPA Calculator</a>
-      <a class="nav-item" onclick="showPage('eligibility-predictor', this)"><span class="icon"><span class="material-icons">check_circle_outline</span></span> Degree Eligibility & Class Predictor</a>
+      <a class="nav-item" onclick="showPage('eligibility-predictor', this)"><span class="icon"><span class="material-icons">check_circle_outline</span></span> Degree Eligibility & Classification Predictor</a>
     </nav>
 
     <div class="sidebar-footer">
@@ -52,33 +52,11 @@
     <!-- HOME PAGE (fully implemented) -->
     <div class="page active" id="page-home">
       <div class="filters-row">
-        <div class="filter-group"><label>Academic Year</label><select id="home-year" onchange="updateDashboard()">
+        <div class="filter-group"><label>Admission Year</label><select id="home-year" onchange="updateDashboard()">
             <option value="all">All Years</option>
-            <option value="2024-25">2024 / 2025</option>
-            <option value="2023-24">2023 / 2024</option>
-            <option value="2022-23">2022 / 2023</option>
-            <option value="2021-22">2021 / 2022</option>
-            <option value="2020-21">2020 / 2021</option>
-            <option value="2019-20">2019 / 2020</option>
-            <option value="2018-19">2018 / 2019</option>
           </select></div>
         <div class="filter-group"><label>Degree Program</label><select id="home-degree" onchange="updateDashboard()">
             <option value="all">All Programs</option>
-            <option value="PS">Physical Science</option>
-            <option value="BS">Bio Science</option>
-            <option value="SS">Sport Science</option>
-            <option value="EC">Electronic and Computer Science</option>
-            <option value="SE">Software Engineering</option>
-            <option value="PE">Physics and Electronic</option>
-            <option value="EN">Environmental Conservation and Management</option>
-            <option value="AC">Applied Chemistry</option>
-          </select></div>
-        <div class="filter-group"><label>Year of Study</label><select id="home-studyyear" onchange="updateDashboard()">
-            <option value="all">All Years</option>
-            <option value="1">Year 1</option>
-            <option value="2">Year 2</option>
-            <option value="3">Year 3</option>
-            <option value="4">Year 4</option>
           </select></div>
       </div>
       <div class="section-heading">Overview</div>
@@ -89,7 +67,7 @@
           <div class="value" id="stat-total">0</div>
           <div class="sublabel">Registered Students</div>
         </div>
-        <div class="stat-card gold">
+        <div class="stat-card gold" onclick="showEligibleStudents()" style="cursor:pointer;">
           <div class="icon-wrap"><span class="material-icons">school</span></div>
           <div class="label">Eligible for Graduation</div>
           <div class="value" id="stat-grad">0</div>
@@ -99,13 +77,19 @@
           <div class="icon-wrap"><span class="material-icons">check_circle</span></div>
           <div class="label">Overall Pass Rate</div>
           <div class="value" id="stat-passrate">0%</div>
-          <div class="sublabel">Current academic year</div>
+          <div class="sublabel">Current admission year</div>
         </div>
-        <div class="stat-card danger">
+        <div class="stat-card danger" onclick="showAtRiskStudents()" style="cursor:pointer;">
           <div class="icon-wrap"><span class="material-icons">warning</span></div>
           <div class="label">At Risk</div>
           <div class="value" id="stat-risk">0</div>
           <div class="sublabel">GPA below threshold</div>
+        </div>
+        <div class="stat-card mismatch" onclick="showMismatchStudents()" style="cursor:pointer;">
+          <div class="icon-wrap"><span class="material-icons">help_outline</span></div>
+          <div class="label">Not matching GPA</div>
+          <div class="value" id="stat-mismatch">0</div>
+          <div class="sublabel">GPA mismatches detected</div>
         </div>
       </div>
       <div class="section-heading">Classification Distribution</div>
@@ -126,33 +110,11 @@
     <!-- STUDENT RECORDS PAGE (fully implemented) -->
     <div class="page" id="page-students">
       <div class="filters-row">
-        <div class="filter-group"><label>Academic Year</label><select id="student-year" onchange="filterStudents()">
+        <div class="filter-group"><label>Admission Year</label><select id="student-year" onchange="filterStudents()">
             <option value="all">All Years</option>
-            <option value="2024-25">2024 / 2025</option>
-            <option value="2023-24">2023 / 2024</option>
-            <option value="2022-23">2022 / 2023</option>
-            <option value="2021-22">2021 / 2022</option>
-            <option value="2020-21">2020 / 2021</option>
-            <option value="2019-20">2019 / 2020</option>
-            <option value="2018-19">2018 / 2019</option>
           </select></div>
         <div class="filter-group"><label>Degree Program</label><select id="student-program" onchange="filterStudents()">
             <option value="all">All Programs</option>
-            <option value="PS">Physical Science</option>
-            <option value="BS">Bio Science</option>
-            <option value="SS">Sport Science</option>
-            <option value="EC">Electronic and Computer Science</option>
-            <option value="SE">Software Engineering</option>
-            <option value="PE">Physics and Electronic</option>
-            <option value="EN">Environmental Conservation and Management</option>
-            <option value="AC">Applied Chemistry</option>
-          </select></div>
-        <div class="filter-group"><label>Year of Study</label><select id="student-year-level" onchange="filterStudents()">
-            <option value="all">All Years</option>
-            <option value="1">Year 1</option>
-            <option value="2">Year 2</option>
-            <option value="3">Year 3</option>
-            <option value="4">Year 4</option>
           </select></div>
         <div class="filter-group"><label>Classification</label><select id="student-class" onchange="filterStudents()">
             <option value="all">All</option>
@@ -169,7 +131,7 @@
           <div style="display:flex; gap:10px; align-items:center;">
             <input class="search-box" type="text" placeholder="Search by ID, name, or program..." oninput="searchStudents(this.value)">
             <span class="student-count" id="student-count">0 of 0 students</span>
-            <button class="add-btn" onclick="addStudent()"><span class="material-icons">person_add</span> Add New</button>
+            <button class="add-btn" onclick="showAddStudentModal()"><span class="material-icons">person_add</span> Add New</button>
           </div>
         </div>
         <table id="student-table">
@@ -179,9 +141,10 @@
               <th>Name with Initials</th>
               <th>Full Name</th>
               <th>Program</th>
-              <th>Year</th>
+              <th>Admission Year</th>
               <th>Total Credits</th>
-              <th>GPA</th>
+              <th>Official GPA</th>
+              <th>Calculated GPA</th>
               <th>Eligibility</th>
               <th>Classification</th>
               <th>Actions</th>
@@ -190,6 +153,35 @@
           <tbody id="student-tbody"></tbody>
         </table>
       </div>
+
+      <!-- Add Student Modal (Popup) -->
+      <div id="addStudentModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+          <div class="modal-header">
+            <h3>Add New Students (CSV)</h3>
+            <span class="close" onclick="hideAddStudentModal()">&times;</span>
+          </div>
+
+          <div class="modal-body">
+            <p style="margin-bottom:16px; color:var(--muted); line-height:1.5;">
+              Bulk import student records and module results by uploading a CSV file. The file must contain the following exact column headers:<br>
+              <strong>Student Number, Name with Initials, Full Name, Degree Program, Admission Year, Module Code, Results, Attempt No, Exam Status</strong>
+            </p>
+            <form onsubmit="submitStudentCSV(event)">
+              <div class="form-group">
+                <label>Select CSV File *</label>
+                <input type="file" id="student_csv_file" accept=".csv">
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="hideAddStudentModal()">Cancel</button>
+                <button type="submit" class="btn-save">Upload CSV</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- GPA CALCULATOR PAGE (with automatic cross-check) -->
@@ -265,13 +257,15 @@
     <div class="page" id="page-eligibility-predictor">
       <div class="section-heading">Degree Eligibility & Classification Predictor</div>
       <p class="section-sub">Enter a student number to check eligibility and predict degree classification</p>
-      <div class="combined-container">
-        <div class="gpa-card" style="padding: 24px;">
+      <div class="predictor-search-wrap">
+        <div class="gpa-card predictor-search-sticky" style="padding: 24px;">
           <div class="gpa-row">
             <div class="gpa-field"><label>Student Number</label><input type="text" id="combined-student-id" placeholder="e.g. PS/2020/001"></div>
             <button class="calc-btn" onclick="loadCombinedData()">Check</button>
           </div>
         </div>
+      </div>
+      <div class="combined-container">
         <div id="combined-results" style="display: none;">
           <div class="student-details-card" id="student-details"></div>
           <div id="eligibility-badge-container" style="text-align: center;"></div>
@@ -341,13 +335,7 @@
         <p class="subtitle">Manage and view all course details</p>
 
         <div class="search-add-container">
-          <div class="search-box">
-            <span class="material-icons">search</span>
-            <input type="text"
-              id="search-input"
-              placeholder="Search by ID, name..."
-              onkeyup="searchCourses(this.value)">
-          </div>
+          <input class="search-box" type="text" id="search-input" placeholder="Search by ID, name, or program..." oninput="searchCourses(this.value)">
 
           <div class="course-info">
             <span id="course-count">0 of 0 courses</span>
@@ -417,9 +405,18 @@
                 <label>Module Status *</label>
                 <select id="new_module_status" required>
                   <option value="">Select Status</option>
-                  <option value="Compulsory">Compulsory</option>
-                  <option value="Elective">Elective</option>
+                  <option value="C">Compulsory</option>
+                  <option value="O">Optional</option>
+                  <option value="A">Auxiliary</option>
+                  <option value="C/O">Compulsory, Optional</option>
                 </select>
+              </div>
+
+              <!-- new file-upload group -->
+              <div class="form-group">
+                <label>Bulk upload (Excel)</label>
+                <input type="file" id="course_excel_file" accept=".xls,.xlsx,.csv">
+                <small style="color:#666;">Choose an .xls, .xlsx or plain CSV file containing columns: module_code, module_name, credit_value, is_gpa_module, module_status (header row required). Supported module_status values: C, O, C/O, A.</small>
               </div>
 
               <div class="form-actions">
@@ -431,14 +428,71 @@
         </div>
       </div>
 
+      <!-- Edit Course Modal (Popup) -->
+      <div id="editCourseModal" class="modal" style="display: none;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Edit Course</h3>
+            <span class="close" onclick="hideEditModal()">&times;</span>
+          </div>
+
+          <div class="modal-body">
+            <form id="editCourseForm" onsubmit="saveEditedCourse(event)">
+              <input type="hidden" id="edit_original_module_code">
+              
+              <div class="form-group">
+                <label>Module Code *</label>
+                <input type="text" id="edit_module_code" required placeholder="e.g., COSC 21052">
+              </div>
+
+              <div class="form-group">
+                <label>Module Name *</label>
+                <input type="text" id="edit_module_name" required placeholder="Enter module name">
+              </div>
+
+              <div class="form-group">
+                <label>Credit Value *</label>
+                <input type="number" id="edit_credit_value" required min="1" max="10" placeholder="Enter credit value">
+              </div>
+
+              <div class="form-group">
+                <label>GPA Module *</label>
+                <select id="edit_is_gpa_module" required>
+                  <option value="">Select GPA Status</option>
+                  <option value="1">GPA Module</option>
+                  <option value="0">Non-GPA Module</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Module Status *</label>
+                <select id="edit_module_status" required>
+                  <option value="">Select Status</option>
+                  <option value="C">Compulsory</option>
+                  <option value="O">Optional</option>
+                  <option value="A">Auxiliary</option>
+                  <option value="C/O">Compulsory, Optional</option>
+                </select>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="hideEditModal()">Cancel</button>
+                <button type="submit" class="btn-save">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div>
     </div>
 
   </main>
 
-  <script src="../assets/js/dashboard.js"></script>
+  <script src="../assets/js/dashboard.js?v=20260324g"></script>
   <script src="../assets/js/script.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 
 </html>

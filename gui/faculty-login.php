@@ -1,12 +1,22 @@
+<?php
+$admin_u = "";
+$admin_p = "";
+$rememberChecked = "";
+if (isset($_COOKIE["admin_username"]) && isset($_COOKIE["admin_password"])) {
+    $admin_u = $_COOKIE["admin_username"];
+    $admin_p = $_COOKIE["admin_password"];
+    $rememberChecked = "checked";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faculty Login — University Portal</title>
+<title>Faculty Login — Degree Eligibility and Class Predictor</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=DM+Sans&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/signin.css"/>
+<link rel="stylesheet" href="../assets/css/signin.css?v=20260324"/>
 
 </head>
 
@@ -25,31 +35,30 @@
 
 <!-- RIGHT PANEL -->
 <div class="panel-right">
+  <div class="login-top-title">Degree Eligibility and Class Predictor</div>
   <div class="login-card">
     <div class="login-heading">
-      <span class="login-heading-label">Faculty Portal</span>
       <h1>Sign In</h1>
-      <p>Enter your university credentials to continue</p>
     </div>
 
     <form id="loginForm">
       <div class="form-group">
         <label>Username</label>
         <div class="input-wrap">
-          <input type="text" name="username" id="username" required>
+          <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($admin_u); ?>" required>
         </div>
       </div>
 
       <div class="form-group">
         <label>Password</label>
         <div class="input-wrap">
-          <input type="password" name="password" id="password" required>
+          <input type="password" name="password" id="password" value="<?php echo htmlspecialchars($admin_p); ?>" required>
           <button type="button" class="toggle-pass" id="togglePass">👁</button>
         </div>
       </div>
 
       <div class="remember-me">
-        <input type="checkbox" id="remember">
+        <input type="checkbox" id="remember" <?php echo $rememberChecked; ?>>
         <label for="remember">Remember me</label>
       </div>
 
@@ -72,7 +81,7 @@ document.getElementById("loginForm").onsubmit = function(e){
   const form = new FormData();
   form.append("username", username.value);
   form.append("password", password.value);
-  form.append("remember", remember.checked);
+  form.append("remember", remember.checked ? "1" : "0");
 
   fetch("loginProcess.php", {
     method: "POST",

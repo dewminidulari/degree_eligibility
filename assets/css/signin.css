@@ -28,7 +28,12 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.55);
+      z-index: 1;
+      background: rgba(0,0,0,0.24);
+    }
+
+    .panel-left::after {
+      display: none;
     }
 
     .panel-left * {
@@ -94,26 +99,54 @@
     .panel-right {
       width: 45%;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: #fff;
+      gap: 40px;
+      position: relative;
+      margin-left: -2px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(187, 160, 132, 0.30) 0%, rgba(187, 160, 132, 0) 42%),
+        linear-gradient(160deg, #d9dddf 0%, #cfd6da 45%, #c4ced3 78%, #b8c5cc 100%);
+    }
+
+    .panel-right::before {
+      display: none;
+    }
+
+    .login-top-title {
+      font-family: "Playfair Display", serif;
+      font-weight: 600;
+      font-size: 30px;
+      letter-spacing: 0.8px;
+      color: #444;
+      line-height: 1.25;
+      text-align: center;
+      max-width: 460px;
     }
 
     .login-card {
       width: 460px;
-      padding: 0 20px;
+      padding: 34px 28px;
+      background: linear-gradient(145deg, rgba(246, 249, 251, 0.36) 0%, rgba(221, 230, 236, 0.24) 52%, rgba(205, 218, 226, 0.20) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 18px;
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(49, 63, 72, 0.12);
     }
 
-    .login-heading-label {
-      font-size: 14px;
-      letter-spacing: 1.5px;
-      color: #777;
+    .login-heading {
+      text-align: center;
+      margin-bottom: 24px;
     }
 
     .login-heading h1 {
       font-family: "Playfair Display", serif;
       font-size: 40px;
       margin: 10px 0;
+      text-align: center;
     }
 
     .login-heading p {
@@ -203,6 +236,11 @@
       .panel-right {
         width: 100%;
         padding: 32px 0;
+        margin-left: 0;
+      }
+
+      .panel-right::before {
+        display: none;
       }
 
       .login-card {
